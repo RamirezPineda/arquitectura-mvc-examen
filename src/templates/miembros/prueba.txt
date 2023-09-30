@@ -1,0 +1,28 @@
+<form action="routes.php" method="post">
+  <input name="id" value="<?= $miembro['id'] ?? 0 ?>" type="hidden" />
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <label for="ci">CI</label>
+      <input name="ci" type="text" id="ci" />
+    </div>
+    <div class="col-12 col-md-4">
+      <label for="nombre">Nombre</label>
+      <input name="nombre" type="text" id="nombre" />
+    </div>
+    <div class="col-12 col-md-4">
+      <label for="telefono">Telefono</label>
+      <input type="number" name="telefono" id="telefono" />
+    </div>
+    <div class="col-12 col-md-4">
+      <label for="edad">Edad</label>
+      <input type="number" name="edad" id="edad" />
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12 d-flex justify-content-end">
+      <input type="submit" value="Submit" />
+      <input type="reset" value="Reset" />
+    </div>
+  </div>
+</form>
