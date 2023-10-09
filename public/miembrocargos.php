@@ -1,9 +1,9 @@
 <?php
 
-require_once '../src/controllers/ControllerMiembro.php';
+require_once '../src/controllers/ControllerMiembroCargo.php';
 
 
-$controller = new ControllerMiembro();
+$controller = new ControllerMiembroCargo();
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $request = [...$_GET];
@@ -13,13 +13,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['_method'])) {
     $request = [...$_POST];
-    $controller->store($request);
+
+    if ($request['id'] === "0") {
+        $controller->crear($request);
+    } else {
+        $controller->editar($request);
+    }
 }
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_method']) && $_POST['_method'] == 'DELETE') {
     if (isset($_POST['id'])) {
         $id = $_POST['id'];
-        $controller->destroy($id);
+        $controller->eliminar($id);
     } else {
         echo "No se proporcionó un ID para eliminar.";
     }

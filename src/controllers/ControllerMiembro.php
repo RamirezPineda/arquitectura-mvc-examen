@@ -15,9 +15,9 @@ class ControllerMiembro
     $this->vista = new ViewMiembro();
   }
 
-  public function index(): void
+  public function listar(): void
   {
-    $miembros = $this->modelo->index();
+    $miembros = $this->modelo->listar();
     $this->vista->mostrar($miembros);
   }
 
@@ -28,9 +28,9 @@ class ControllerMiembro
     $this->vista->mostrar($miembros);
   }
 
-  public function destroy(int $id) {
+  public function destroy(int $id)
+  {
     $this->modelo->destroy($id);
-    self::index();
+    self::listar();
   }
-
 }

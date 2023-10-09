@@ -1,20 +1,16 @@
 <?php
 
-require_once '../src/controllers/ControllerMiembro.php';
+require_once '../src/controllers/ControllerParentesco.php';
 
 
-$controller = new ControllerMiembro();
+$controller = new ControllerParentesco();
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $request = [...$_GET];
 
-    $controller->listar($request);
+    $controller->index($request);
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['_method'])) {
-    $request = [...$_POST];
-    $controller->store($request);
-}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_method']) && $_POST['_method'] == 'DELETE') {
     if (isset($_POST['id'])) {
@@ -23,4 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_method']) && $_POST['
     } else {
         echo "No se proporcionó un ID para eliminar.";
     }
+} elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $request = [...$_POST];
+
+    $controller->store($request);
 }

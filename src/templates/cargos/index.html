@@ -19,25 +19,20 @@
   </head>
   <body>
     <?php include '../src/templates/navbar/index.html' ?>
-    
 
     <div class="container py-4">
-      <!-- formulario para crear o actualizar -->
+      <!-- formulario para crear o editar -->
       <div class="card p-4">
         <div class="card-body">
           <h2 class="card-title">Formulario</h2>
-          <form action="routes.php" method="post" class="row row-cols-2">
-            <input id="id" name="id" type="number" value="0" class="visually-hidden">
-            <div class="mb-3 col">
-              <label for="ci" class="form-label">Ci</label>
-              <input
-                type="text"
-                class="form-control"
-                id="ci"
-                name="ci"
-                placeholder="Ci"
-              />
-            </div>
+          <form action="cargos.php" method="post" class="row row-cols-2">
+            <input
+              id="id"
+              name="id"
+              type="number"
+              value="0"
+              class="visually-hidden"
+            />
             <div class="mb-3 col">
               <label for="nombre" class="form-label">Nombre</label>
               <input
@@ -49,29 +44,23 @@
               />
             </div>
             <div class="mb-3 col">
-              <label for="telefono" class="form-label">Telefono</label>
+              <label for="descripcion" class="form-label">Descripcion</label>
               <input
-                type="number"
+                type="text"
                 class="form-control"
-                id="telefono"
-                name="telefono"
-                placeholder="Telefono"
+                id="descripcion"
+                name="descripcion"
+                placeholder="Descripcion"
               />
             </div>
-            <div class="mb-3 col">
-              <label for="edad" class="form-label">Edad</label>
-              <input
-                type="number"
-                class="form-control"
-                id="edad"
-                name="edad"
-                placeholder="Edad"
-              />
-            </div>
+
             <div class="row mt-3">
               <div class="col-12 d-flex justify-content-start gap-4">
                 <button class="btn btn-primary" type="submit" value="Submit">
-                  Save
+                  Crear
+                </button>
+                <button class="btn btn-warning" type="submit" value="Submit">
+                  Editar
                 </button>
                 <button class="btn" type="reset" value="Reset">Limpiar</button>
               </div>
@@ -80,7 +69,7 @@
         </div>
       </div>
 
-      <!-- Lista de miembros de las iglesias -->
+      <!-- Lista de cargos de la iglesia -->
       <div class="card p-4">
         <div class="card-body">
           <h2 class="card-title"><?= $title ?></h2>
@@ -89,11 +78,9 @@
             <thead>
               <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Ci</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Telefono</th>
-                <th scope="col">Edad</th>
-                <th scope="col">Acciones</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col"></th>
               </tr>
             </thead>
 
@@ -105,32 +92,21 @@
     </div>
   </body>
 
-
-
-
-  
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const filasMiembro = document.querySelectorAll(".fila-miembro");
-  
-      filasMiembro.forEach(function(fila) {
-        fila.addEventListener("click", function() {
+    document.addEventListener("DOMContentLoaded", function () {
+      const filasMiembro = document.querySelectorAll(".fila-cargo");
 
+      filasMiembro.forEach(function (fila) {
+        fila.addEventListener("click", function () {
           const id = fila.querySelector("th").textContent;
-          const ci = fila.querySelector("td:nth-child(2)").textContent;
-          const nombre = fila.querySelector("td:nth-child(3)").textContent;
-          const telefono = fila.querySelector("td:nth-child(4)").textContent;
-          const edad = fila.querySelector("td:nth-child(5)").textContent;
-  
+          const nombre = fila.querySelector("td:nth-child(2)").textContent;
+          const descripcion = fila.querySelector("td:nth-child(3)").textContent;
+
           document.querySelector("#id").value = id;
-          document.querySelector("#ci").value = ci;
           document.querySelector("#nombre").value = nombre;
-          document.querySelector("#telefono").value = telefono;
-          document.querySelector("#edad").value = edad;
+          document.querySelector("#descripcion").value = descripcion;
         });
       });
     });
   </script>
-  
-
 </html>

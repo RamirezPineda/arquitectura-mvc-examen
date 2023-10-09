@@ -1,18 +1,17 @@
 <?php
 
-class ViewMiembro
+class ViewParentesco
 {
 
     private function renderTableBody(array $rows): string
     {
         $rowData = '';
         foreach ($rows as $row) {
-            $rowData .= "<tr class='fila-miembro'>";
+            $rowData .= "<tr>";
             $rowData .= "<th scope='row'>{$row['id']}</th>";
-            $rowData .= "<td>{$row['ci']}</td>";
+            $rowData .= "<td>{$row['relacion']}</td>";
             $rowData .= "<td>{$row['nombre']}</td>";
-            $rowData .= "<td>{$row['telefono']}</td>";
-            $rowData .= "<td>{$row['edad']}</td>";
+            $rowData .= "<td>{$row['miembroId']}</td>";
             $rowData .= "
                 <td>
                     <div  class='d-flex justify-content-start gap-2'>
@@ -35,10 +34,21 @@ class ViewMiembro
         return "<tbody>$rowData</tbody>";
     }
 
-    public function mostrar(array $miembros): void
+
+    private function renderSelectMiembro(array $rows): string
     {
-        $title = 'Miembros de la iglesia';
-        $tbody = $this->renderTableBody($miembros);
-        include '../src/templates/miembros/index.html';
+        $rowData = '';
+        foreach ($rows as $row ) {
+            $rowData .= "<option value='{$row['id']}'> {$row['nombre']} </option>";
+        }
+        return "<tbody>$rowData</tbody>";
+    }
+
+    public function mostrar(array $parentescos, array $miembros): void
+    {
+        $title = 'Parentesco';
+        $tbody = $this->renderTableBody($parentescos);
+        $selectMiembros = $this->renderSelectMiembro($miembros);
+        include '../src/templates/parentescos/index.html';
     }
 }

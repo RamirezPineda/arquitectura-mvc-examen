@@ -31,7 +31,7 @@ class ModelMiembro
     $this->edad = $data["edad"];
   }
 
-  public function index(): array
+  public function listar(): array
   {
     return Sqlite::execSqlSelect('SELECT * FROM miembro;');
   }
@@ -43,19 +43,23 @@ class ModelMiembro
 
     $sqlQueryUpdate = "UPDATE miembro SET ci='%s', nombre='%s', telefono='%s' , edad=%s WHERE id=%s";
 
+    $querySql = "";
+
     if ($this->id === 0) {
       $sqlQueryInsert = sprintf($sqlQueryInsert, $this->ci, $this->nombre, $this->telefono, $this->edad);
+      $querySql = $sqlQueryInsert;
     } else {
-      $sqlQueryUpdate = sprintf($sqlQueryUpdate, $this->ci, $this->nombre, $this->telefono, $this->edad);
+      $sqlQueryUpdate = sprintf($sqlQueryUpdate, $this->ci, $this->nombre, $this->telefono, $this->edad, $this->id);
+      $querySql = $sqlQueryUpdate;
     }
 
-    $querySql = $this->id  === 0 ? $sqlQueryInsert : $sqlQueryUpdate;
+    // $querySql = $this->id  === 0 ? $sqlQueryInsert : $sqlQueryUpdate;
 
     $result = Sqlite::execSql($querySql);
 
     if (!$result) return []; // Ocurrio un error al guardar
 
-    return self::index();
+    return self::listar();
     // return $this->id !== 0 ?
     //   $this->find($this->id) :
     //   $this->find($this->ci, 'ci');
@@ -68,8 +72,6 @@ class ModelMiembro
 
   public function destroy(int $id): bool
   {
-      return Sqlite::execSql("DELETE FROM miembro WHERE id=$id");
+    return Sqlite::execSql("DELETE FROM miembro WHERE id=$id");
   }
-
-
 }
