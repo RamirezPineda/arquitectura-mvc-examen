@@ -19,7 +19,6 @@
   </head>
   <body>
     <?php include '../src/templates/navbar/index.html' ?>
-    
 
     <div class="container py-4">
       <!-- formulario para crear o actualizar -->
@@ -27,17 +26,13 @@
         <div class="card-body">
           <h2 class="card-title">Formulario</h2>
           <form action="routes.php" method="post" class="row row-cols-2">
-            <input id="id" name="id" type="number" value="0" class="visually-hidden">
-            <div class="mb-3 col">
-              <label for="ci" class="form-label">Ci</label>
-              <input
-                type="text"
-                class="form-control"
-                id="ci"
-                name="ci"
-                placeholder="Ci"
-              />
-            </div>
+            <input
+              id="id"
+              name="id"
+              type="number"
+              value="0"
+              class="visually-hidden"
+            />
             <div class="mb-3 col">
               <label for="nombre" class="form-label">Nombre</label>
               <input
@@ -46,6 +41,16 @@
                 id="nombre"
                 name="nombre"
                 placeholder="Nombre"
+              />
+            </div>
+            <div class="mb-3 col">
+              <label for="ci" class="form-label">Ci</label>
+              <input
+                type="text"
+                class="form-control"
+                id="ci"
+                name="ci"
+                placeholder="Ci"
               />
             </div>
             <div class="mb-3 col">
@@ -68,10 +73,23 @@
                 placeholder="Edad"
               />
             </div>
+            <div class="mb-3 col">
+              <label for="fechaIngreso" class="form-label"
+                >Fecha de ingreso</label
+              >
+              <input
+                type="date"
+                class="form-control"
+                id="fechaIngreso"
+                name="fechaIngreso"
+                placeholder="fechaIngreso"
+              />
+            </div>
+            <div></div>
             <div class="row mt-3">
               <div class="col-12 d-flex justify-content-start gap-4">
                 <button class="btn btn-primary" type="submit" value="Submit">
-                  Save
+                  Guardar
                 </button>
                 <button class="btn" type="reset" value="Reset">Limpiar</button>
               </div>
@@ -93,6 +111,7 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Telefono</th>
                 <th scope="col">Edad</th>
+                <th scope="col">Fecha de ingreso</th>
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
@@ -105,32 +124,28 @@
     </div>
   </body>
 
-
-
-
-  
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       const filasMiembro = document.querySelectorAll(".fila-miembro");
-  
-      filasMiembro.forEach(function(fila) {
-        fila.addEventListener("click", function() {
 
+      filasMiembro.forEach(function (fila) {
+        fila.addEventListener("click", function () {
           const id = fila.querySelector("th").textContent;
           const ci = fila.querySelector("td:nth-child(2)").textContent;
           const nombre = fila.querySelector("td:nth-child(3)").textContent;
           const telefono = fila.querySelector("td:nth-child(4)").textContent;
           const edad = fila.querySelector("td:nth-child(5)").textContent;
-  
+          const fechaIngreso =
+            fila.querySelector("td:nth-child(6)").textContent;
+
           document.querySelector("#id").value = id;
           document.querySelector("#ci").value = ci;
           document.querySelector("#nombre").value = nombre;
           document.querySelector("#telefono").value = telefono;
           document.querySelector("#edad").value = edad;
+          document.querySelector("#fechaIngreso").value = fechaIngreso;
         });
       });
     });
   </script>
-  
-
 </html>

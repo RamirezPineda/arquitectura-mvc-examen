@@ -11,6 +11,7 @@ class ModelMiembro
   private string $nombre;
   private int $telefono;
   private int $edad;
+  private string $fechaIngreso;
 
   public function __construct()
   {
@@ -19,8 +20,8 @@ class ModelMiembro
     $this->nombre = "";
     $this->telefono = 0;
     $this->edad = 0;
+    $this->fechaIngreso = "";
   }
-
 
   public function setData(array $data): void
   {
@@ -29,6 +30,7 @@ class ModelMiembro
     $this->nombre = $data["nombre"];
     $this->telefono = $data["telefono"];
     $this->edad = $data["edad"];
+    $this->fechaIngreso = $data["fechaIngreso"];
   }
 
   public function listar(): array
@@ -36,41 +38,24 @@ class ModelMiembro
     return Sqlite::execSqlSelect('SELECT * FROM miembro;');
   }
 
-  public function store(): array
+  public function crear()
   {
-    $sqlQueryInsert = "INSERT INTO miembro (ci, nombre, telefono, edad)";
-    $sqlQueryInsert .= " VALUES ('%s', '%s', '%s', %s);";
+    $sqlQuery = "INSERT INTO miembro (ci, nombre, telefono, edad, fechaIngreso)";
+    $sqlQuery .= " VALUES ('%s', '%s', '%s', '%s', '%s');";
+    $sqlQuery = sprintf($sqlQuery, $this->ci, $this->nombre, $this->telefono, $this->edad, $this->fechaIngreso);
 
-    $sqlQueryUpdate = "UPDATE miembro SET ci='%s', nombre='%s', telefono='%s' , edad=%s WHERE id=%s";
-
-    $querySql = "";
-
-    if ($this->id === 0) {
-      $sqlQueryInsert = sprintf($sqlQueryInsert, $this->ci, $this->nombre, $this->telefono, $this->edad);
-      $querySql = $sqlQueryInsert;
-    } else {
-      $sqlQueryUpdate = sprintf($sqlQueryUpdate, $this->ci, $this->nombre, $this->telefono, $this->edad, $this->id);
-      $querySql = $sqlQueryUpdate;
-    }
-
-    // $querySql = $this->id  === 0 ? $sqlQueryInsert : $sqlQueryUpdate;
-
-    $result = Sqlite::execSql($querySql);
-
-    if (!$result) return []; // Ocurrio un error al guardar
-
-    return self::listar();
-    // return $this->id !== 0 ?
-    //   $this->find($this->id) :
-    //   $this->find($this->ci, 'ci');
+    Sqlite::execSql($sqlQuery);
   }
 
-  public function find(string $value, string $column = 'id'): array
+  public function editar()
   {
-    return Sqlite::execSqlSelect("SELECT * FROM miembro WHERE $column='$value';");
+    $sqlQuery = "UPDATE miembro SET ci='%s', nombre='%s', telefono='%s' , edad='%s', fechaIngreso='%s' WHERE id=%s";
+    $sqlQuery = sprintf($sqlQuery, $this->ci, $this->nombre, $this->telefono, $this->edad, $this->fechaIngreso, $this->id);
+
+    Sqlite::execSql($sqlQuery);
   }
 
-  public function destroy(int $id): bool
+  public function eliminar(int $id): bool
   {
     return Sqlite::execSql("DELETE FROM miembro WHERE id=$id");
   }

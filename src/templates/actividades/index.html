@@ -25,7 +25,7 @@
       <div class="card p-4">
         <div class="card-body">
           <h2 class="card-title">Formulario</h2>
-          <form action="cargos.php" method="post" class="row row-cols-2">
+          <form action="actividades.php" method="post" class="row row-cols-2">
             <input
               id="id"
               name="id"
@@ -44,15 +44,28 @@
               />
             </div>
             <div class="mb-3 col">
-              <label for="descripcion" class="form-label">Descripcion</label>
+              <label for="descripcion" class="form-label">Lugar</label>
               <input
                 type="text"
                 class="form-control"
-                id="descripcion"
-                name="descripcion"
-                placeholder="Descripcion"
+                id="lugar"
+                name="lugar"
+                placeholder="lugar"
               />
             </div>
+            <div class="mb-3 col">
+              <label for="descripcion" class="form-label">Hora</label>
+              <input
+                type="datetime"
+                class="form-control"
+                id="hora"
+                name="hora"
+                placeholder="Hora"
+              />
+            </div>
+
+            <!-- selectGrupos -->
+            <?= $selectGrupos ?>
 
             <div class="row mt-3">
               <div class="col-12 d-flex justify-content-start gap-4">
@@ -76,7 +89,8 @@
               <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Descripcion</th>
+                <th scope="col">Lugar</th>
+                <th scope="col">Hora</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -91,7 +105,7 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const filasMiembro = document.querySelectorAll(".fila-cargo");
+      const filasMiembro = document.querySelectorAll(".fila-actividad");
 
       filasMiembro.forEach(function (fila) {
         fila.addEventListener("click", function () {

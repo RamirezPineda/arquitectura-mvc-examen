@@ -25,7 +25,7 @@
       <div class="card p-4">
         <div class="card-body">
           <h2 class="card-title">Formulario</h2>
-          <form action="cargos.php" method="post" class="row row-cols-2">
+          <form action="miembrogrupos.php" method="post" class="row row-cols-2">
             <input
               id="id"
               name="id"
@@ -34,25 +34,28 @@
               class="visually-hidden"
             />
             <div class="mb-3 col">
-              <label for="nombre" class="form-label">Nombre</label>
+              <label for="descripcion" class="form-label">Rol</label>
               <input
                 type="text"
                 class="form-control"
-                id="nombre"
-                name="nombre"
-                placeholder="Nombre"
+                id="rol"
+                name="rol"
+                placeholder="Rol"
               />
             </div>
             <div class="mb-3 col">
-              <label for="descripcion" class="form-label">Descripcion</label>
+              <label for="nombre" class="form-label">Fecha Ingreso</label>
               <input
-                type="text"
+                type="date"
                 class="form-control"
-                id="descripcion"
-                name="descripcion"
-                placeholder="Descripcion"
+                id="fechaIngreso"
+                name="fechaIngreso"
+                placeholder="Fecha Ingreso"
               />
             </div>
+
+            <?= $selectMiembros ?>
+            <?= $selectGrupos ?>
 
             <div class="row mt-3">
               <div class="col-12 d-flex justify-content-start gap-4">
@@ -75,8 +78,10 @@
             <thead>
               <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Descripcion</th>
+                <th scope="col">Rol</th>
+                <th scope="col">Fecha Ingreso</th>
+                <th scope="col">Miembro de la iglesia</th>
+                <th scope="col">Grupo</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -91,17 +96,22 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const filasMiembro = document.querySelectorAll(".fila-cargo");
+      const filasMiembro = document.querySelectorAll(".fila-miembrogrupo");
 
       filasMiembro.forEach(function (fila) {
         fila.addEventListener("click", function () {
           const id = fila.querySelector("th").textContent;
-          const nombre = fila.querySelector("td:nth-child(2)").textContent;
-          const descripcion = fila.querySelector("td:nth-child(3)").textContent;
+          const rol = fila.querySelector("td:nth-child(2)").textContent;
+          const fechaInicio = fila.querySelector("td:nth-child(3)").textContent;
+
+          const miembroId = fila.querySelector("td:nth-child(7)").textContent;
+          const grupoId = fila.querySelector("td:nth-child(8)").textContent;
 
           document.querySelector("#id").value = id;
-          document.querySelector("#nombre").value = nombre;
-          document.querySelector("#descripcion").value = descripcion;
+          document.querySelector("#rol").value = rol;
+          document.querySelector("#fechaIngreso").value = fechaInicio;
+          document.querySelector("#miembroId").value = miembroId;
+          document.querySelector("#grupoId").value = grupoId;
         });
       });
     });

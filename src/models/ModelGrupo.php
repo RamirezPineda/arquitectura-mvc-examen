@@ -3,7 +3,7 @@
 require_once '../src/utils/Sqlite.php';
 
 
-class ModelParentesco
+class ModelGrupo
 {
   private int $id;
   private string $nombre;
@@ -25,12 +25,12 @@ class ModelParentesco
 
   public function listar(): array
   {
-    return Sqlite::execSqlSelect('SELECT * FROM parentesco;');
+    return Sqlite::execSqlSelect('SELECT * FROM grupo;');
   }
 
   public function crear(): void
   {
-    $sqlQueryInsert = "INSERT INTO parentesco (nombre, descripcion)";
+    $sqlQueryInsert = "INSERT INTO grupo (nombre, descripcion)";
     $sqlQueryInsert .= " VALUES ('%s', '%s');";
 
     $sqlQueryInsert = sprintf($sqlQueryInsert, $this->nombre, $this->descripcion);
@@ -40,7 +40,8 @@ class ModelParentesco
 
   public function editar(): void
   {
-    $sqlQueryUpdate = "UPDATE parentesco SET nombre='%s', descripcion='%s' WHERE id=%s";
+    $sqlQueryUpdate = "UPDATE grupo SET nombre='%s', descripcion='%s' WHERE id=%s";
+
     $sqlQueryUpdate = sprintf($sqlQueryUpdate, $this->nombre, $this->descripcion, $this->id);
 
     Sqlite::execSql($sqlQueryUpdate);
@@ -48,6 +49,6 @@ class ModelParentesco
 
   public function eliminar(int $id): bool
   {
-    return Sqlite::execSql("DELETE FROM parentesco WHERE id=$id");
+    return Sqlite::execSql("DELETE FROM grupo WHERE id=$id");
   }
 }

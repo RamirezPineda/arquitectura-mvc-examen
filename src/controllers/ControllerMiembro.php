@@ -21,16 +21,29 @@ class ControllerMiembro
     $this->vista->mostrar($miembros);
   }
 
-  public function store(array $request): void
+  public function crear(array $request)
   {
     $this->modelo->setData($request);
-    $miembros = $this->modelo->store();
+    $this->modelo->crear();
+
+    $miembros = $this->modelo->listar();
     $this->vista->mostrar($miembros);
   }
 
-  public function destroy(int $id)
+  public function editar(array $request)
   {
-    $this->modelo->destroy($id);
-    self::listar();
+    $this->modelo->setData($request);
+    $this->modelo->editar();
+
+    $miembros = $this->modelo->listar();
+    $this->vista->mostrar($miembros);
+  }
+
+  public function eliminar(int $id)
+  {
+    $this->modelo->eliminar($id);
+
+    $miembros = $this->modelo->listar();
+    $this->vista->mostrar($miembros);
   }
 }
